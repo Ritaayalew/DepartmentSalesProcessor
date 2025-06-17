@@ -4,12 +4,14 @@
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": ".",
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
     "moduleResolution": "node",
-    "allowJs": true
+    "allowJs": true,
+    "resolveJsonModule": true
   },
   "include": ["backend/**/*", "frontend/**/*"],
   "exclude": ["node_modules", "dist", "uploads", "results"]
