@@ -2,8 +2,11 @@ import express from 'express';
 import path from 'path';
 import rateLimit from 'express-rate-limit';
 import uploadRoutes from './routes/uploadRoutes'
+import cors from 'cors';
+
 
 const app= express();
+app.use(cors())
 app.use(express.json());
 
 const limiter = rateLimit({

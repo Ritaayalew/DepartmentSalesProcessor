@@ -17,8 +17,6 @@ const csvQueue = new Queue('csv-processing', {
 console.log(csvQueue);
 
 
-//
-
 export async function addToQueue(inputPath: string): Promise<string> {
   const job = await csvQueue.add({ inputPath });
   return job.id as string;
@@ -29,9 +27,15 @@ csvQueue.process(async (job) => {
   return result;
 });
 
+
 export async function getJobResult(jobId: string): Promise<any> {
   const job = await csvQueue.getJob(jobId);
-  return job?.returnvalue || null;
+  if (!job) return { error: "Job not found" };
+
+  const jobData = job.data;
+  const result = job.returnvalue || { error: "Job not completed yet" };
+
+  return { ...result, expectedFilePath: jobData.expectedFilePath };
 }
 
 
