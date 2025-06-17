@@ -1,7 +1,6 @@
 import fs from 'fs';
 import csvParser from 'csv-parser';
 import { Stringifier, stringify } from 'csv-stringify';
-import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 
 interface SalesRow {
@@ -14,15 +13,15 @@ interface AggregatedData {
   [department: string]: number;
 }
 
-export async function processCSVFile(inputPath: string): Promise<{ filePath: string, metrics: { processingTime: number, departmentCount: number } }> {
+export async function processCSVFile(inputPath: string, jobId: string): Promise<{ filePath: string, metrics: { processingTime: number, departmentCount: number } }> {
   const outputDir = path.join(__dirname, '../../results');
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
   }
-  const outputFile = path.join(outputDir, `${uuidv4()}.csv`);
+  const outputFile = path.join(outputDir, `${jobId}_output.csv`);
+  console.log(`Generating output file: ${outputFile}`);
   const aggregatedData: AggregatedData = {};
 
-  // Process input CSV using streams
   const startTime = Date.now();
   await new Promise((resolve, reject) => {
     fs.createReadStream(inputPath)
@@ -38,7 +37,6 @@ export async function processCSVFile(inputPath: string): Promise<{ filePath: str
       .on('error', reject);
   });
 
-  // Write aggregated data to output CSV
   const columns = ['Department Name', 'Total Number of Sales'];
   const stringifier: Stringifier = stringify({ header: true, columns });
   const writableStream = fs.createWriteStream(outputFile);
@@ -55,6 +53,7 @@ export async function processCSVFile(inputPath: string): Promise<{ filePath: str
   });
 
   const processingTime = Date.now() - startTime;
+  console.log(`Output file written: ${outputFile}`);
   return {
     filePath: outputFile,
     metrics: { processingTime, departmentCount: Object.keys(aggregatedData).length }
