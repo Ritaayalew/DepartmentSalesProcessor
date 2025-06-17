@@ -41,6 +41,6 @@ A **React or Next.js frontend** is included, allowing users to upload CSV files,
 git clone https://github.com/your-username/csv-processing-api.git
 cd csv-processing-api
 ```
-### from the root run "npm install"
-### from the root run "npm run dev" to activate the server
-### navigate to the front end directory and run "npm run dev"
+## from the root run "npm install"
+## from the root run "npm run dev" to activate the server
+## navigate to the front end directory and run "npm run dev"
