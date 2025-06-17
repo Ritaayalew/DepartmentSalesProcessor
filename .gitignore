@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build outputs
+dist/
+build/
+
+# Temporary folders
+uploads/
+results/
+
+# Environment variables
+.env
+
+# Vite cache
+.vite/
