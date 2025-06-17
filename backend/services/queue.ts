@@ -5,6 +5,8 @@ const csvQueue = new Queue('csv-processing', {
   redis: { host: 'localhost', port: 6379 }
 });
 
+//&Yt3!pxQ9v*sN12z
+
 export async function addToQueue(inputPath: string): Promise<string> {
   const job = await csvQueue.add({ inputPath });
   return job.id as string;
