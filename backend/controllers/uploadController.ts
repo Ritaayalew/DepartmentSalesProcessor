@@ -3,10 +3,11 @@ import { addToQueue, getJobResult } from '../services/queue';
 import path from 'path';
 import fs from 'fs';
 
-export async function processCSV(req: Request, res: Response) {
+export async function processCSV(req: Request, res: Response): Promise<void> {
   try {
     if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      res.status(400).json({ error: 'No file uploaded' });
+      return;
     }
 
     const inputPath = req.file.path;
@@ -22,12 +23,13 @@ export async function processCSV(req: Request, res: Response) {
   }
 }
 
-export async function checkJobStatus(req: Request, res: Response) {
+export async function checkJobStatus(req: Request, res: Response): Promise<void> {
   try {
     const jobId = req.params.jobId;
     const result = await getJobResult(jobId);
     if (!result) {
-      return res.status(202).json({ message: 'Processing not complete' });
+      res.status(202).json({ message: 'Processing not complete' });
+      return;
     }
 
     // Clean up uploaded file
