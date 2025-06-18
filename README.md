@@ -42,7 +42,30 @@ git clone https://github.com/your-username/csv-processing-api.git
 cd csv-processing-api
 ```
 - ✅ from the root run "npm install"
+- ✅ Set Up Environment Variables
+The application uses Redis for queue processing. Create a .env file in the root directory by copying the provided template:
+Edit .env with your Redis configuration (default values work for a local Redis instance):
+```
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=
+```
+- ✅ Install and Run Redis
+The application requires a running Redis instance. Choose one of the following options:
+Local Redis:
+macOS/Linux: Install with Homebrew and start Redis:
+```
+brew install redis
+```
+redis-server
+Windows: Download from redis-windows and run redis-server.exe.
+Docker: Run Redis in a container:
+```
+docker run -d -p 6379:6379 --name redis redis
+```
+
 - ✅ from the root run "npm run dev" to activate the server
 - ✅ navigate to the front end directory and run "npm run dev"
 - ✅ after clicking upload in the screen you wwill see a new updated csv file added to the results folder found in the root.
 - ✅ you can only see the files you upload in the uploads folder within the root
+
